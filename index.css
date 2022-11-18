@@ -1,0 +1,30 @@
+#customer {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+
+#customer th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+  #customer td, #customer th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  #customer th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+  #deletebtn{
+       background-color: rgb(243, 117, 117);
+       cursor: pointer;
+       border: 1px solid red;
+  }

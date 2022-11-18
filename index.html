@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Masai Doctor Records</title>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+    <!-- Use this form for data input  -->
+    <form onsubmit="submit_form(event)">
+      <input placeholder="Name" type="text" id="name" />
+      <input placeholder="Doctor ID" type="text" id="doctor_id" />
+      <select id="specialization">
+        <option value="">Select Specialization</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Dentist">Dentist</option>
+        <option value="Gynecologist">Gynecologist</option>
+      </select>
+      <input placeholder="Experience" type="number" id="experience" />
+      <input placeholder="Email" type="email" id="email" />
+      <input placeholder="Mobile No." type="number" id="mobile" />
+      <input type="submit" value="Submit"  />
+    </form>
+
+    <!-- Use this Select tag for filter part  -->
+    <select id="filter">
+      <option value="">Select Specialization</option>
+      <option value="Dermatologist">Dermatologist</option>
+      <option value="Dentist">Dentist</option>
+      <option value="Gynecologist">Gynecologist</option>
+    </select>
+    <table id="customer">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Doctor ID</th>
+          <th>Specialization</th>
+          <th>Experience in Years</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+          
+      </tbody>
+    </table>
+  </body>
+  
+  <script>
+    let arr = [] ;
+     
+
+         function submit_form(event){
+          event.preventDefault()
+             let name = document.getElementById("name").value ;
+             let id =  document.getElementById("doctor_id").value ;
+             let spec = document.getElementById("specialization").value ;
+             let exper = document.getElementById("experience").value ;
+             let email = document.getElementById("email").value
+             let mobile = document.getElementById("mobile").value ;
+              //  obj.name = name ;
+              //  obj.id = id ;
+              //  obj.specialization = spec ;
+              //  obj.experience = exper ;
+              //  obj.email = email ;
+              //  obj.mobile = mobile ;
+              let obj = {
+                  "name" : name ,
+                  "id": id,
+                  "specialization" : spec ,
+                  "experience" : exper ,
+                  "email" : email ,
+                  "mobile" : mobile
+                } ;
+
+               arr.push(obj) 
+               localStorage.setItem("doctorData",JSON.stringify(arr));
+               dataMap()
+             
+         }
+         
+        
+         
+         function dataMap(){
+
+          var doctorArr = JSON.parse(localStorage.getItem("doctorData"));
+          
+          document.querySelector("#tbody").innerHTML = ""
+          
+          doctorArr.map((elem) => {
+            
+         
+          var tr =document.createElement("tr");
+
+          var td1 = document.createElement("td");
+          td1.innerText = elem.name
+
+          var td2 = document.createElement("td");
+          td2.innerText = elem.id
+          
+          var td3 = document.createElement("td");
+          td3.innerText = elem.specialization
+
+          var td4 = document.createElement("td");
+          td4.innerText = elem.experience
+
+          var td5 = document.createElement("td");
+          td5.innerText = elem.email
+
+          var td6 = document.createElement("td");
+          td6.innerText = elem.mobile
+
+          var td7 = document.createElement("td");
+          td7.innerText = "Delete" 
+          td7.addEventListener("click", function(){
+               deleteElem(elem)
+          })
+          td7.setAttribute("id", "deletebtn")
+          var td8 = document.createElement("td");
+          td8.innerText = "Senior"
+       
+          tr.append(td1,td2,td3,td4,td5, td6,td8,td7)
+
+          document.querySelector("#tbody").append(tr);
+
+         })
+          
+         }
+
+         function deleteElem(ele){
+             let id = ele.id  ;
+            var doctorArr = JSON.parse(localStorage.getItem("doctorData"));
+           let newArr =   doctorArr.filter((ele) => ele.id !== id) ;
+           localStorage.setItem("doctorData",JSON.stringify(newArr));
+           dataMap()
+             
+         }
+         
+  </script>
+</html>
